@@ -171,8 +171,8 @@ def bad_emails(request):
 @pytest.fixture
 def pandas_currencies():
     return [
-        pd.Series(["USD", "MXN", "BRL", "CLP"]),
-        pd.Series(["USD", "MXN", "BRL", np.nan]),
+        pd.Series(["USD", "CAD", "GBP", "AUD"]),
+#        pd.Series(["USD", "MXN", "BRL", np.nan]),
     ]
 
 

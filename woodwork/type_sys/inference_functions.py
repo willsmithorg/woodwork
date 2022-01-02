@@ -161,7 +161,7 @@ def currencycode_func(series):
         "MYR",
         "RON",
     )
-    if series.isin(most_widely_used_currencies).mean() > 0.8:
+    if series.isin(most_widely_used_currencies).mean() > 0.7:
         return True
     else:
         return False

@@ -118,7 +118,7 @@ def test_currency_inference(currencies):
 
 
 def test_currency_inference_failure(bad_currencies):
-    dtypes = ["object", "string"]
+    dtypes = ["object", "string", "category"]
     if _is_koalas_series(bad_currencies[0]):
         dtypes = get_koalas_dtypes(dtypes)
 
