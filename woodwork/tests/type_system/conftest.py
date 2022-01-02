@@ -142,7 +142,6 @@ def emails(request):
     return request.getfixturevalue(request.param)
 
 
-# Email Inference Fixtures
 @pytest.fixture
 def bad_pandas_emails():
     return [
@@ -165,6 +164,57 @@ def bad_koalas_emails(bad_pandas_emails):
 
 @pytest.fixture(params=["bad_pandas_emails", "bad_dask_emails", "bad_koalas_emails"])
 def bad_emails(request):
+    return request.getfixturevalue(request.param)
+
+
+# Currency Inference Fixtures
+@pytest.fixture
+def pandas_currencies():
+    return [
+        pd.Series(["USD", "MXN", "BRL", "CLP"]),
+        pd.Series(["USD", "MXN", "BRL", np.nan]),
+    ]
+
+
+@pytest.fixture
+def dask_currencies(pandas_currencies):
+    return [pd_to_dask(series) for series in pandas_currencies]
+
+
+@pytest.fixture
+def koalas_currencies(pandas_currencies):
+    return [pd_to_koalas(series) for series in pandas_currencies]
+
+
+@pytest.fixture(params=["pandas_currencies", "dask_currencies", "koalas_currencies"])
+def currencies(request):
+    return request.getfixturevalue(request.param)
+
+
+@pytest.fixture
+def bad_pandas_currencies():
+    return [
+        pd.Series(["WRONG", "STRING", "LENGTH"]),
+        pd.Series([1, 2, 3]),
+        pd.Series(["ABC", "DEF", "USD", np.nan]),
+        pd.Series(["ABC", "DEF", "USD", "JKL"]),
+    ]
+
+
+@pytest.fixture
+def bad_dask_currencies(bad_pandas_currencies):
+    return [pd_to_dask(series) for series in bad_pandas_currencies]
+
+
+@pytest.fixture
+def bad_koalas_currencies(bad_pandas_currencies):
+    return [pd_to_koalas(series) for series in bad_pandas_currencies]
+
+
+@pytest.fixture(
+    params=["bad_pandas_currencies", "bad_dask_currencies", "bad_koalas_currencies"]
+)
+def bad_currencies(request):
     return request.getfixturevalue(request.param)
 
 

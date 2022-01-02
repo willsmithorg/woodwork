@@ -247,7 +247,7 @@ def _get_mutual_information_dict(
 ):
     """Calculates mutual information between all pairs of columns in the DataFrame that
     support mutual information. Logical Types that support mutual information are as
-    follows:  Boolean, Categorical, CountryCode, Datetime, Double, Integer, Ordinal,
+    follows:  Boolean, Categorical, CountryCode, CurrencyCode, Datetime, Double, Integer, Ordinal,
     PostalCode, and SubRegionCode
 
     Args:

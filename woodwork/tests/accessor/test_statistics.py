@@ -16,6 +16,7 @@ from woodwork.logical_types import (
     BooleanNullable,
     Categorical,
     CountryCode,
+    CurrencyCode,
     Datetime,
     Double,
     EmailAddress,
@@ -354,6 +355,7 @@ def test_describe_accessor_method(describe_df):
     categorical_ltypes = [
         Categorical,
         CountryCode,
+        CurrencyCode,
         Ordinal(order=("yellow", "red", "blue")),
         PostalCode,
         SubRegionCode,

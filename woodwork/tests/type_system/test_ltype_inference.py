@@ -4,6 +4,7 @@ from woodwork.logical_types import (
     Boolean,
     BooleanNullable,
     Categorical,
+    CurrencyCode,
     Datetime,
     Double,
     EmailAddress,
@@ -104,6 +105,27 @@ def test_email_inference_failure(bad_emails):
             inferred_type = ww.type_system.infer_logical_type(series.astype(dtype))
             assert not isinstance(inferred_type, EmailAddress)
 
+
+def test_currency_inference(currencies):
+    dtypes = ["object", "string"]
+    if _is_koalas_series(currencies[0]):
+        dtypes = get_koalas_dtypes(dtypes)
+
+    for series in currencies:
+        for dtype in dtypes:
+            inferred_type = ww.type_system.infer_logical_type(series.astype(dtype))
+            assert isinstance(inferred_type, CurrencyCode)
+
+
+def test_currency_inference_failure(bad_currencies):
+    dtypes = ["object", "string"]
+    if _is_koalas_series(bad_currencies[0]):
+        dtypes = get_koalas_dtypes(dtypes)
+
+    for series in bad_currencies:
+        for dtype in dtypes:
+            inferred_type = ww.type_system.infer_logical_type(series.astype(dtype))
+            assert not isinstance(inferred_type, CurrencyCode)
 
 def test_categorical_inference(categories):
     dtypes = ["object", "string", "category"]

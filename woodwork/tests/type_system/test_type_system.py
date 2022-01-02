@@ -18,6 +18,7 @@ from woodwork.logical_types import (
 )
 from woodwork.type_sys.inference_functions import (
     categorical_func,
+    currencycode_func,
     double_func,
     integer_func,
 )

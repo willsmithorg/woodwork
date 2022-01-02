@@ -112,6 +112,61 @@ def natural_language_func(series):
     )  # determined through https://github.com/alteryx/nl_inference
 
 
+def currencycode_func(series):
+    # Must be a string categorical and all must be exactly 3 chars long.
+    if not categorical_func(series):
+        return False
+    if not pdtypes.is_string_dtype(series.dtype):
+        return False
+    if series.astype("string").str.len().max() != 3:
+        return False
+    if series.astype("string").str.len().min() != 3:
+        return False
+    # Finally, if it's a list of currencies we'd expect most of them to be the major currency codes.
+    # There are 200+ currency codes so we only include the largest, from https://stats.bis.org/statx/srs/table/d11.3
+    most_widely_used_currencies = (
+        "USD",
+        "EUR",
+        "JPY",
+        "GBP",
+        "AUD",
+        "CAD",
+        "CHF",
+        "CNY",
+        "HKD",
+        "NZD",
+        "SEK",
+        "KRW",
+        "SGD",
+        "NOK",
+        "MXN",
+        "INR",
+        "RUB",
+        "ZAR",
+        "TRY",
+        "BRL",
+        "TWD",
+        "DKK",
+        "PLN",
+        "THB",
+        "IDR",
+        "HUF",
+        "CZK",
+        "ILS",
+        "CLP",
+        "PHP",
+        "AED",
+        "COP",
+        "SAR",
+        "MYR",
+        "RON",
+    )
+    if series.isin(most_widely_used_currencies).mean() > 0.8:
+        return True
+    else:
+        return False
+
+
 class InferWithRegex:
     def __init__(self, get_regex: Callable[[], str]):
         self.get_regex = get_regex

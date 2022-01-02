@@ -22,6 +22,7 @@ from woodwork.exceptions import (
 from woodwork.logical_types import (
     Categorical,
     CountryCode,
+    CurrencyCode,
     Double,
     Integer,
     LatLong,
@@ -363,6 +364,7 @@ def test_adds_category_standard_tag():
     logical_types = [
         Categorical,
         CountryCode,
+        CurrencyCode,
         Ordinal(order=(1, 2, 3)),
         PostalCode,
         SubRegionCode,
